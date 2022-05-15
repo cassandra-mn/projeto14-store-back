@@ -1,12 +1,10 @@
-import db from "../db.js";
+import db from '../db.js';
 
 export async function addProduct(req, res) {
     const product = req.body;
-    console.log(product);
 
     try {
         await db.collection('checkout').insertOne(product);
-
         res.sendStatus(200);
     } catch(e) {
         console.log(e);
@@ -15,6 +13,11 @@ export async function addProduct(req, res) {
 }
 
 export async function checkout(req, res) {
-    
-    res.sendStatus(200);
+    try {
+        const products = await db.collection('checkout').find({}).toArray();
+        res.send(products);
+    } catch(e) {
+        console.log(e);
+        res.status(500).send('Ocorreu um erro');
+    }
 }
