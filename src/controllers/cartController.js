@@ -4,7 +4,7 @@ export async function addProduct(req, res) {
     const product = req.body;
 
     try {
-        await db.collection('checkout').insertOne(product);
+        await db.collection('cart').insertOne(product);
         res.sendStatus(200);
     } catch(e) {
         console.log(e);
@@ -12,9 +12,9 @@ export async function addProduct(req, res) {
     }
 }
 
-export async function checkout(req, res) {
+export async function cart(req, res) {
     try {
-        const products = await db.collection('checkout').find({}).toArray();
+        const products = await db.collection('cart').find({}).toArray();
         res.send(products);
     } catch(e) {
         console.log(e);
