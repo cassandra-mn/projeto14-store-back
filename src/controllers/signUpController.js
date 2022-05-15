@@ -26,7 +26,6 @@ export async function register(req, res){
             const encryptedPassword = bcrypt.hashSync(password, 10);
             await db.collection("users").insertOne({name, surname, email, password: encryptedPassword});
         }
-
     } catch(error) {
         console.log(error);
     }
