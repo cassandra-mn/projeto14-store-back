@@ -38,3 +38,18 @@ export async function exclude(req, res) {
         res.status(500).send('Ocorreu um erro');
     }
 }
+
+export async function update(req, res) {
+    const {id} = req.params;
+    const data = req.body;
+
+    try {
+        const product = await db.collection('cart').findOne({code: id});
+        if (!product) return res.status(404).send('Produto não encontrado');
+        
+        await db.collection('cart').updateOne({code: id}, {$set: data});
+        res.sendStatus(200);
+    } catch(e) {
+        res.status(500).send(e);
+    }
+}
