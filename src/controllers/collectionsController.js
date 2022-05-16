@@ -14,6 +14,9 @@ export async function getCollection(req, res) {
     const {id} = req.params;
     
     try {
+        const collection = await db.collection('collections').findOne({name: id});
+        if (!collection) return res.sendStatus(404);
+
         const products = await db.collection('products').find({collection: id}).toArray();
         res.send(products);
     } catch(e) {
