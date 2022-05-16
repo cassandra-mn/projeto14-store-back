@@ -1,9 +1,10 @@
 import express from 'express';
 
-import {setCollections} from '../controllers/collectionsController.js';
+import {collections, getCollection} from '../controllers/collectionsController.js';
 
 const collectionsRouter = express.Router();
 
-collectionsRouter.get('/collections', setCollections);
+collectionsRouter.get('/collections', collections);
+collectionsRouter.get('/collection/:id', getCollection);
 
 export default collectionsRouter;
